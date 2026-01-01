@@ -1,0 +1,138 @@
+:root{
+  --bg-1:#0f1724;
+  --bg-2:#071026;
+  --card:#0b1220;
+  --accent:#ffd166;
+  --muted:#9aa4b2;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  color:#e6eef6;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px;
+}
+.card{
+  width:min(920px,96%);
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius:16px;
+  padding:28px;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+  display:grid;
+  grid-template-rows: auto 1fr auto;
+  gap:20px;
+}
+.title{
+  margin:0;
+  font-family: 'Cinzel', serif;
+  margin:0;
+  font-weight:700;
+  font-size:clamp(36px,6vw,88px);
+  letter-spacing:1px;
+  text-align:center;
+  color:var(--accent);
+  text-shadow:0 8px 30px rgba(0,0,0,0.6), 0 0 20px rgba(255,209,102,0.06);
+}
+.grid{
+  display:grid;
+  grid-template-columns: 1fr 320px;
+  gap:20px;
+  align-items:stretch;
+}
+.message{
+  background:transparent;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  height:100%;
+}
+.text{
+  margin:0 0 12px 0;
+  line-height:1.6;
+  color:#dfeaf6;
+  font-size:1.25rem;
+}
+.footnote{
+  margin:0;
+  font-family: 'Great Vibes', cursive;
+  color:var(--muted);
+  font-size:1.75rem;
+  margin-top:auto;
+  font-weight:400;
+}
+.confetti-area{
+  position:relative;
+  height:320px;
+  border-radius:10px;
+  overflow:hidden;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+}
+.confetti-area{
+  /* optional image: place an image named 'confetti-bg.jpg' next to the HTML file, or adjust the path */
+  background-image: url('image-removebg-preview.png');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  perspective: 900px;
+}
+.confetti{
+  position:absolute;
+  width:10px;
+  height:14px;
+  opacity:0.95;
+  transform-origin:center;
+  will-change:transform, top, left;
+  border-radius:2px;
+  animation:fall linear forwards;
+}
+/* ensure confetti is rendered above the hero text */
+.confetti{z-index:3}
+
+.confetti-hero{
+  position:absolute;
+  left:50%;
+  top:80%;
+  transform: translate(-50%,-45%) rotateX(14deg) translateZ(20px);
+  font-family: 'Cinzel', serif;
+  font-weight:700;
+  font-size: clamp(48px, 11vw, 100px);
+  color: var(--accent);
+  text-shadow: 0 6px 20px rgba(0,0,0,0.6), 0 2px 0 rgba(255,209,102,0.06);
+  letter-spacing: 6px;
+  z-index:2;
+  pointer-events:none;
+  mix-blend-mode: normal;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  -webkit-font-smoothing:antialiased;
+}
+@keyframes fall{
+  0%{transform:translateY(-10vh) rotate(0deg);}
+  100%{transform:translateY(120vh) rotate(720deg);}
+}
+.controls{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+}
+.btn{
+  background:transparent;
+  border:1px solid rgba(255,255,255,0.08);
+  color:var(--accent);
+  padding:10px 14px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.btn:active{transform:translateY(1px)}
+.sr-only{position:absolute!important;height:1px;width:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media (max-width:760px){
+  .grid{grid-template-columns:1fr;}
+  .confetti-area{height:200px}
+}
