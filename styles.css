@@ -26,6 +26,7 @@ body{
   display:grid;
   grid-template-rows: auto 1fr auto;
   gap:20px;
+  transition: transform 120ms ease, padding 120ms ease;
 }
 .title{
   margin:0;
@@ -40,7 +41,8 @@ body{
 }
 .grid{
   display:grid;
-  grid-template-columns: 1fr 320px;
+  /* keep two columns but allow the right column to shrink on small screens */
+  grid-template-columns: 1fr minmax(160px,320px);
   gap:20px;
   align-items:stretch;
 }
@@ -132,44 +134,31 @@ body{
 }
 .btn:active{transform:translateY(1px)}
 .sr-only{position:absolute!important;height:1px;width:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-@media (max-width:760px){
-  .grid{grid-template-columns:1fr;}
-  .card{padding:18px}
-  .message{padding:12px}
-  .text{font-size:1rem}
-  .footnote{font-size:1.2rem}
-  .confetti-area{height:220px}
-  .confetti-hero{
-    font-size: clamp(36px, 10vw, 90px);
-    transform: translate(-50%,-40%) rotateX(10deg) translateZ(10px);
-    letter-spacing:4px;
+/* Small screens: keep two-column grid but scale card and shrink right column */
+@media (max-width:520px){
+  .card{
+    transform-origin: top center;
+    transform: scale(0.98);
+    padding:20px;
   }
-}
-
-@media (max-width:420px){
-  .card{padding:14px}
-  .title{font-size:clamp(28px,8vw,56px)}
-  .text{font-size:0.95rem; line-height:1.45}
-  .footnote{font-size:1.05rem}
-  .confetti-area{height:180px}
-  .confetti-hero{
-    font-size: clamp(28px, 18vw, 64px);
-    transform: translate(-50%,-36%) rotateX(8deg) translateZ(6px);
-    letter-spacing:2px;
+  .grid{
+    grid-template-columns: 1fr minmax(140px, 38%);
+    gap:14px;
   }
-  .confetti{opacity:0.9}
+  .confetti-area{height:200px}
+  .title{font-size:clamp(28px,8vw,72px)}
 }
 
-/* subtle overlay so hero text reads clearly on busy images */
-.confetti-area::before{
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(transparent, rgba(0,0,0,0.28));
-  z-index: 1;
-  pointer-events: none;
+@media (max-width:360px){
+  /* further scale on very small devices but keep two columns until extremely narrow */
+  .card{transform: scale(0.92); padding:16px}
+  .grid{grid-template-columns: 1fr 120px; gap:10px}
+  .confetti-area{height:160px}
 }
 
-/* ensure stacking: overlay (1) < hero (2) < confetti (3) */
-.confetti-hero{z-index:2}
-.confetti{z-index:3}
+@media (max-width:300px){
+  /* fallback: single column when there's not enough space */
+  .card{transform: scale(0.9)}
+  .grid{grid-template-columns:1fr}
+  .confetti-area{height:140px}
+}
